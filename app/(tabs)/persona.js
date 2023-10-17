@@ -11,6 +11,10 @@ const Persona = () => {
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [role, setRole] = useState("");
+    const [background, setBackground] = useState("");
+    const [personality, setPersonality] = useState("");
+    const [goal, setGoal] = useState("");
+    const [worry, setWorry] = useState("");
     const [senario, setSenario] = useState("");
     const [experience, setExperience] = useState("");
     const [state, setState] = useState("");
@@ -25,6 +29,10 @@ const Persona = () => {
                 name: name,
                 age: age,
                 role: role,
+                background: background,
+                personality: personality,
+                goal: goal,
+                worry: worry,
                 senario: senario,
                 experience: experience,
             });
@@ -43,9 +51,13 @@ const Persona = () => {
         setName("");
         setAge("");
         setRole("");
+        setBackground("");
+        setPersonality("");
+        setGoal("");
+        setWorry("");
         setSenario("");
         setExperience("");
-        const messages = [{ "role": "system", "content": "당신은 프로젝트 컨설턴트 입니다. 내가 현재 진행중인 프로젝트에 대한 내용을 말해주면 당신은 임의의 페르소나를 만들어서 그에 대한 '사용 시나리오'와 '경험 후 개선점'을 반드시 말해주면 됩니다 또한 페르소나는 '이름'과 '나이', '역할'을 가지며. 응답은 무조건 페르소나의 '이름', '나이', '역할', '사용 시나리오', '경험 후 개선점'이 구성요소로 들어가야하며 각 구성요소에 구성요소 명이 명시되어야만 합니다." },
+        const messages = [{ "role": "system", "content": "당신은 프로젝트 컨설턴트 입니다. 내가 현재 진행중인 프로젝트에 대한 내용을 말해주면 당신은 임의의 페르소나를 만들어서 그에 대한 '사용 시나리오'와 '경험 후 개선점'을 반드시 말해주면 됩니다 또한 페르소나는 '이름'과 '나이', '직업', '배경', '성격', '목표', '고민'을 가지며. 응답은 무조건 페르소나의 '이름', '나이',  '직업', '배경', '성격', '목표', '고민', '사용 시나리오', '경험 후 개선점'이 구성요소로 들어가야하며 각 구성요소에 구성요소 명이 명시되어야만 합니다." },
         { "role": "user", "content": userProject }];
 
         const executeRunConversation = async () => {
@@ -109,7 +121,23 @@ const Persona = () => {
                         },
                         "role": {
                             "type": "string",
-                            "description": "페르소나의 역할 찾기",
+                            "description": "페르소나의 직업 찾기",
+                        },
+                        "background": {
+                            "type": "string",
+                            "description": "페르소나의 배경 찾기",
+                        },
+                        "personality": {
+                            "type": "string",
+                            "description": "페르소나의 성격 찾기",
+                        },
+                        "goal": {
+                            "type": "string",
+                            "description": "페르소나의 목표 찾기",
+                        },
+                        "worry": {
+                            "type": "string",
+                            "description": "페르소나의 고민 찾기",
                         },
                         "senario": {
                             "type": "string",
@@ -121,7 +149,7 @@ const Persona = () => {
                         }
 
                     },
-                    "required": ["name", "age", "interest", "senario", "experience"],
+                    "required": ["name", "age", "role", "background","personality", "goal", "worry", "senario", "experience"],
                 },
             }
         ];
@@ -149,11 +177,15 @@ const Persona = () => {
                 const responseMessage = response.data.choices[0].message.function_call.arguments;
 
                 const responseJson = JSON.parse(responseMessage);
-                console.log("name : " + responseJson);
+                console.log("name : " + responseMessage);
 
                 setName(responseJson.name);
                 setAge(responseJson.age);
                 setRole(responseJson.role);
+                setBackground(responseJson.background);
+                setPersonality(responseJson.personality);
+                setGoal(responseJson.goal);
+                setWorry(responseJson.worry);
                 setSenario(responseJson.senario);
                 setExperience(responseJson.experience);
                 setState("GPT가 응답했습니다.");
@@ -219,9 +251,41 @@ const Persona = () => {
             <Divider width={5} />
 
             <View style={styles.vertical}>
-                <Text>역할</Text>
+                <Text>직업</Text>
                 <Divider orientation="vertical" />
                 <Text>{role}</Text>
+            </View>
+
+            <Divider width={5} />
+
+            <View style={styles.horizontal}>
+                <Text>배경</Text>
+                <Divider />
+                <Text>{background}</Text>
+            </View>
+
+            <Divider width={5} />
+
+            <View style={styles.horizontal}>
+                <Text>성격</Text>
+                <Divider />
+                <Text>{personality}</Text>
+            </View>
+
+            <Divider width={5} />
+
+            <View style={styles.horizontal}>
+                <Text>목표</Text>
+                <Divider />
+                <Text>{goal}</Text>
+            </View>
+
+            <Divider width={5} />
+
+            <View style={styles.horizontal}>
+                <Text>고민</Text>
+                <Divider />
+                <Text>{worry}</Text>
             </View>
 
             <Divider width={5} />

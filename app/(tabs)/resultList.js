@@ -62,7 +62,12 @@ const ResultList = () => {
                             <Text>프로젝트 : {data.userProject}</Text>
                             <Card.Divider />
                             <Text>나이 : {data.age}</Text>
-                            <Text>역할 : {data.role}</Text>
+                            <Text>직업 : {data.role}</Text>
+                            <Card.Divider />
+                            <Text>배경 : {data.background}</Text>
+                            <Text>성격 : {data.personality}</Text>
+                            <Text>목표 : {data.goal}</Text>
+                            <Text>고민 : {data.worry}</Text>
                             <Card.Divider />
                             <Text>사용 시나리오 : {data.senario}</Text>
                             <Card.Divider />
