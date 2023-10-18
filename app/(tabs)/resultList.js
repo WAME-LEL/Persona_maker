@@ -59,19 +59,27 @@ const ResultList = () => {
 
                             </View>
                             <Card.Divider />
-                            <Text>프로젝트 : {data.userProject}</Text>
+                            <Text style={styles.boldText}>프로젝트</Text>
+                            <Text>{data.userProject}</Text>
                             <Card.Divider />
-                            <Text>나이 : {data.age}</Text>
-                            <Text>직업 : {data.role}</Text>
+                           
+                            <Text><Text style={styles.boldText}>나이 </Text> {data.age}</Text>
+                            <Text><Text style={styles.boldText}>직업 </Text>{data.role}</Text>
                             <Card.Divider />
-                            <Text>배경 : {data.background}</Text>
-                            <Text>성격 : {data.personality}</Text>
-                            <Text>목표 : {data.goal}</Text>
-                            <Text>고민 : {data.worry}</Text>
+                            <Text style={styles.boldText}>배경</Text>
+                            <Text>{data.background}</Text>
+                            <Text style={styles.boldText}>성격</Text>
+                            <Text>{data.personality}</Text>
+                            <Text style={styles.boldText}>목표</Text>
+                            <Text>{data.goal}</Text>
+                            <Text style={styles.boldText}>고민</Text>
+                            <Text>{data.worry}</Text>
                             <Card.Divider />
-                            <Text>사용 시나리오 : {data.senario}</Text>
+                            <Text style={styles.boldText}>사용 시나리오</Text>
+                            <Text>{data.senario}</Text>
                             <Card.Divider />
-                            <Text>경험 후 개선점 : {data.experience}</Text>
+                            <Text style={styles.boldText}>경험 후 개선점</Text>
+                            <Text>{data.experience}</Text>
                         </Card>
                     );
                 })}
@@ -110,6 +118,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#393E46',
         color: 'white',
 
+    },
+    boldText: {
+        fontWeight: 'bold'
     }
 
 })

@@ -30,9 +30,6 @@ export default () => {
                     tabBarIcon: ({ color, size }) => <FontAwesome5 name="list" size={size} color={color} />
                 }}
             />
-
-            
-
         </Tabs>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, TextInput, View, StyleSheet, Pressable } from "react-native"
+import { Text, TextInput, View, StyleSheet, Pressable, ScrollView } from "react-native"
 import { Divider } from '@rneui/base';
 import axios from 'axios';
 import { db, collection, addDoc } from '../../firebaseConfig'
@@ -57,7 +57,7 @@ const Persona = () => {
         setWorry("");
         setSenario("");
         setExperience("");
-        const messages = [{ "role": "system", "content": "당신은 프로젝트 컨설턴트 입니다. 내가 현재 진행중인 프로젝트에 대한 내용을 말해주면 당신은 임의의 페르소나를 만들어서 그에 대한 '사용 시나리오'와 '경험 후 개선점'을 반드시 말해주면 됩니다 또한 페르소나는 '이름'과 '나이', '직업', '배경', '성격', '목표', '고민'을 가지며. 응답은 무조건 페르소나의 '이름', '나이',  '직업', '배경', '성격', '목표', '고민', '사용 시나리오', '경험 후 개선점'이 구성요소로 들어가야하며 각 구성요소에 구성요소 명이 명시되어야만 합니다." },
+        const messages = [{ "role": "system", "content": "당신은 프로젝트 컨설턴트 입니다. 내가 현재 진행중인 프로젝트에 대한 내용을 말해주면 당신은 임의의 페르소나를 만들어서 그에 대한 '사용 시나리오'와 '경험 후 개선점'을 반드시 말해주면 됩니다 또한 페르소나는 '이름'과 '나이', '직업', '배경', '성격', '목표', '고민'을 가지며. 응답은 무조건 페르소나의 '이름', '나이',  '직업', '배경', '성격', '목표', '고민', '사용 시나리오', '경험 후 개선점'이 구성요소로 들어가며 각 구성요소에대해 상세하고 응답해줘야하며 구성요소 명이 명시되어야만 합니다." },
         { "role": "user", "content": userProject }];
 
         const executeRunConversation = async () => {
@@ -81,7 +81,6 @@ const Persona = () => {
                 console.log("response : " + responseString);
 
                 setFunctionCallingString(responseString);
-                // await functionCalling();
 
             } catch (e) {
                 console.error("에러 발생:", e);
@@ -101,7 +100,6 @@ const Persona = () => {
     const functionCalling = async () => {
         setState("GPT가 응답을 정리하는 중입니다");
         console.log("this:" + functionCallingString);
-        // Step 1: send the conversation and available functions to GPT
 
         const messages = [{ "role": "user", "content": functionCallingString }];
         const functions = [
@@ -149,7 +147,7 @@ const Persona = () => {
                         }
 
                     },
-                    "required": ["name", "age", "role", "background","personality", "goal", "worry", "senario", "experience"],
+                    "required": ["name", "age", "role", "background", "personality", "goal", "worry", "senario", "experience"],
                 },
             }
         ];
@@ -233,78 +231,80 @@ const Persona = () => {
             <Text>{state}</Text>
 
             <Divider width={5} />
+            <ScrollView>
+                <View style={styles.vertical}>
+                    <Text style={styles.boldText}>이름</Text>
+                    <Divider orientation="vertical" />
+                    <Text>{name}</Text>
+                </View>
 
-            <View style={styles.vertical}>
-                <Text>이름</Text>
-                <Divider orientation="vertical" />
-                <Text>{name}</Text>
-            </View>
+                <Divider width={5} />
 
-            <Divider width={5} />
+                <View style={styles.vertical}>
+                    <Text style={styles.boldText}>나이</Text>
+                    <Divider orientation="vertical" />
+                    <Text>{age}</Text>
+                </View>
 
-            <View style={styles.vertical}>
-                <Text>나이</Text>
-                <Divider orientation="vertical" />
-                <Text>{age}</Text>
-            </View>
+                <Divider width={5} />
 
-            <Divider width={5} />
+                <View style={styles.vertical}>
+                    <Text style={styles.boldText}>직업</Text>
+                    <Divider orientation="vertical" />
+                    <Text>{role}</Text>
+                </View>
 
-            <View style={styles.vertical}>
-                <Text>직업</Text>
-                <Divider orientation="vertical" />
-                <Text>{role}</Text>
-            </View>
+                <Divider width={5} />
 
-            <Divider width={5} />
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>배경</Text>
+                    <Divider />
+                    <Text>{background}</Text>
+                </View>
 
-            <View style={styles.horizontal}>
-                <Text>배경</Text>
-                <Divider />
-                <Text>{background}</Text>
-            </View>
+                <Divider width={5} />
 
-            <Divider width={5} />
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>성격</Text>
+                    <Divider />
+                    <Text>{personality}</Text>
+                </View>
 
-            <View style={styles.horizontal}>
-                <Text>성격</Text>
-                <Divider />
-                <Text>{personality}</Text>
-            </View>
+                <Divider width={5} />
 
-            <Divider width={5} />
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>목표</Text>
+                    <Divider />
+                    <Text>{goal}</Text>
+                </View>
 
-            <View style={styles.horizontal}>
-                <Text>목표</Text>
-                <Divider />
-                <Text>{goal}</Text>
-            </View>
+                <Divider width={5} />
 
-            <Divider width={5} />
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>고민</Text>
+                    <Divider />
+                    <Text>{worry}</Text>
+                </View>
 
-            <View style={styles.horizontal}>
-                <Text>고민</Text>
-                <Divider />
-                <Text>{worry}</Text>
-            </View>
+                <Divider width={5} />
 
-            <Divider width={5} />
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>사용 시나리오</Text>
+                    <Divider />
+                    <Text>{senario}</Text>
+                </View>
 
-            <View style={styles.horizontal}>
-                <Text>사용 시나리오</Text>
-                <Divider />
-                <Text>{senario}</Text>
-            </View>
+                <Divider width={5} />
 
-            <Divider width={5} />
+                <View style={styles.bottomHorizontal}>
+                    <Text style={styles.boldText}>경험 후 개선점</Text>
+                    <Divider />
+                    <Text>{experience}</Text>
+                </View>
 
-            <View style={styles.horizontal}>
-                <Text>경험 후 개선점</Text>
-                <Divider />
-                <Text>{experience}</Text>
-            </View>
+                <Divider width={5} />
+            </ScrollView>
 
-            <Divider width={5} />
 
 
         </View>
@@ -327,6 +327,9 @@ const styles = StyleSheet.create({
     horizontal: {
         marginBottom: 10,
     },
+    bottomHorizontal:{
+        marginBottom: 160,
+    },
     buttonContainer: {
         flexDirection: "row",
 
@@ -348,6 +351,9 @@ const styles = StyleSheet.create({
         letterSpacing: 0.25,
         color: 'white',
     },
+    boldText: {
+        fontWeight: 'bold'
+    }
 });
 
 export default Persona;

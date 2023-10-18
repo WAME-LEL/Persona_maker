@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, useRouter } from "expo-router"
+import { useRouter } from "expo-router"
 import { Text, StyleSheet, View, Pressable } from "react-native";
 
 const Home = () => {
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
         
     },
     container: {
-        flex: 1, // This allows the View to take up the entire screen
-        backgroundColor: '#610C9F', // Change this to the desired background color
+        flex: 1,
+        backgroundColor: '#610C9F',
         alignItems: 'center',
         justifyContent: 'center',
     },
