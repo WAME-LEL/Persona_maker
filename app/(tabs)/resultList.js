@@ -77,9 +77,24 @@ const ResultList = () => {
                             <Card.Divider />
                             <Text style={styles.boldText}>사용 시나리오</Text>
                             <Text>{data.senario}</Text>
-                            <Card.Divider />
                             <Text style={styles.boldText}>경험 후 개선점</Text>
                             <Text>{data.experience}</Text>
+                            <Card.Divider />
+                            <Text style={styles.boldText}>평가 {"\n"}</Text>
+
+                            <Text style={styles.boldText}>창의성</Text>
+                            <Text>{data.creativity}</Text>
+                            <Text style={styles.boldText}>사용자참여도 및 유용성</Text>
+                            <Text>{data.utility}</Text>
+                            <Text style={styles.boldText}>기술적 실행 가능성</Text>
+                            <Text>{data.feasibility}</Text>
+                            <Text style={styles.boldText}>시장의 수용도</Text>
+                            <Text>{data.acceptance}</Text>
+                            <Text style={styles.boldText}>지속가능성 및 확장성</Text>
+                            <Text>{data.scalability}</Text>
+                            <Text style={styles.boldText}>총점</Text>
+                            <Text>{data.totalPoint}</Text>
+
                         </Card>
                     );
                 })}
@@ -121,6 +136,9 @@ const styles = StyleSheet.create({
     },
     boldText: {
         fontWeight: 'bold'
+    },
+    biggerText:{
+        fontSize: 18
     }
 
 })

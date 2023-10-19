@@ -6,7 +6,7 @@ import { db, collection, addDoc } from '../../firebaseConfig'
 
 const Persona = () => {
     const OPENAI_API_KEY = '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'
-    const model = 'gpt-3.5-turbo'
+    const model = 'gpt-4'
 
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
@@ -17,6 +17,12 @@ const Persona = () => {
     const [worry, setWorry] = useState("");
     const [senario, setSenario] = useState("");
     const [experience, setExperience] = useState("");
+    const [creativity, setCreativity] = useState("");
+    const [utility, setUtility] = useState("");
+    const [feasibility, setFeasibility] = useState("");
+    const [acceptance, setAcceptance] = useState("");
+    const [scalability, setScalability] = useState("");
+    const [totalPoint, setTotalPoint] = useState("");
     const [state, setState] = useState("");
     const [userProject, setUserProject] = useState("");
     const [functionCallingString, setFunctionCallingString] = useState();
@@ -35,6 +41,12 @@ const Persona = () => {
                 worry: worry,
                 senario: senario,
                 experience: experience,
+                creativity: creativity,
+                utility: utility,
+                feasibility: feasibility,
+                acceptance: acceptance,
+                scalability: scalability,
+                totalPoint: totalPoint,
             });
             console.log("Document written with ID: ", docRef.id);
             alert("저장되었습니다")
@@ -57,7 +69,14 @@ const Persona = () => {
         setWorry("");
         setSenario("");
         setExperience("");
-        const messages = [{ "role": "system", "content": "당신은 프로젝트 컨설턴트 입니다. 내가 현재 진행중인 프로젝트에 대한 내용을 말해주면 당신은 임의의 페르소나를 만들어서 그에 대한 '사용 시나리오'와 '경험 후 개선점'을 반드시 말해주면 됩니다 또한 페르소나는 '이름'과 '나이', '직업', '배경', '성격', '목표', '고민'을 가지며. 응답은 무조건 페르소나의 '이름', '나이',  '직업', '배경', '성격', '목표', '고민', '사용 시나리오', '경험 후 개선점'이 구성요소로 들어가며 각 구성요소에대해 상세하고 응답해줘야하며 구성요소 명이 명시되어야만 합니다." },
+        setCreativity("");
+        setUtility("");
+        setFeasibility("");
+        setAcceptance("");
+        setScalability("");
+        setTotalPoint("");
+        const messages = [{
+            "role": "system", "content": "당신은 프로젝트 컨설턴트 입니다. 내가 현재 진행중인 프로젝트에 대한 내용을 말해주면 당신은 임의의 페르소나를 만들어서 그에 대한 '사용 시나리오'와 '경험 후 개선점'을 반드시 말해주면 됩니다 또한 페르소나는 '이름'과 '나이', '직업', '배경', '성격', '목표', '고민'을 가지며. 응답은 무조건 페르소나의 '이름', '나이',  '직업', '배경', '성격', '목표', '고민', '사용 시나리오', '경험 후 개선점'이 구성요소로 들어가며 각 구성요소에대해 상세하고 응답해줘야하며 구성요소 명이 명시되어야만 합니다. 또한 내가 알려준 프로젝트를 '창의성', '사용자참여도 및 유용성', '기술적 실행 가능성', '시장의 수용도', '지속가능성 및 확장성' 이 5개의 항목으로 각 20점 씩 100점 만점으로 평가 해줘야 하며 각 항목에 대한 설명과 점수가 필요하고 각 항목에 대한 설명, 점수라고 명시 해줘야한다. 이 점수를 모두 합한 총점 항목이 필요합니다" },
         { "role": "user", "content": userProject }];
 
         const executeRunConversation = async () => {
@@ -144,10 +163,34 @@ const Persona = () => {
                         "experience": {
                             "type": "string",
                             "description": "페르소나의 경험 후 개선점 항목의 모든 내용 가져오기",
+                        },
+                        "creativity": {
+                            "type": "string",
+                            "description": "평가의 창의성 항목의 설명과 점수를 포함한 모든 내용 가져오기",
+                        },
+                        "utility": {
+                            "type": "string",
+                            "description": "평가의 사용자참여도 및 유용성 항목의 설명과 점수를 포함한 모든 내용 가져오기",
+                        },
+                        "feasibility": {
+                            "type": "string",
+                            "description": "평가의 기술적 실행 가능성 항목의 설명과 점수를 포함한 모든 내용 가져오기",
+                        },
+                        "acceptance": {
+                            "type": "string",
+                            "description": "평가의 시장의 수용도 항목의 설명과 점수를 포함한 모든 내용 가져오기",
+                        },
+                        "scalability": {
+                            "type": "string",
+                            "description": "평가의 지속가능성 및 확장성 항목의 설명과 점수를 포함한 모든 내용 가져오기",
+                        },
+                        "totalPoint": {
+                            "type": "string",
+                            "description": "평가의 5개의 각 항목 점수의 총점 구하기",
                         }
 
                     },
-                    "required": ["name", "age", "role", "background", "personality", "goal", "worry", "senario", "experience"],
+                    "required": ["name", "age", "role", "background", "personality", "goal", "worry", "senario", "experience", "creativity" ,"utility" , "feasibility", "acceptance", "scalability", "totalPoint"],
                 },
             }
         ];
@@ -186,6 +229,12 @@ const Persona = () => {
                 setWorry(responseJson.worry);
                 setSenario(responseJson.senario);
                 setExperience(responseJson.experience);
+                setCreativity(responseJson.creativity);
+                setUtility(responseJson.utility);
+                setFeasibility(responseJson.feasibility);
+                setAcceptance(responseJson.acceptance);
+                setScalability(responseJson.scalability);
+                setTotalPoint(responseJson.totalPoint);
                 setState("GPT가 응답했습니다.");
 
             } catch (e) {
@@ -208,7 +257,7 @@ const Persona = () => {
 
 
     return (
-        <View>
+        <View style={styles.bottomHorizontal}>
             <TextInput
                 style={styles.input}
                 onChangeText={setUserProject}
@@ -296,16 +345,65 @@ const Persona = () => {
 
                 <Divider width={5} />
 
-                <View style={styles.bottomHorizontal}>
+                <View style={styles.horizontal}>
                     <Text style={styles.boldText}>경험 후 개선점</Text>
                     <Divider />
                     <Text>{experience}</Text>
                 </View>
 
                 <Divider width={5} />
+                <Text style={styles.boldText}>평가</Text>
+                <Divider width={5} />
+
+
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>창의성</Text>
+                    <Divider />
+                    <Text>{creativity}</Text>
+                </View>
+
+                <Divider width={5} />
+
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>사용자참여도 및 유용성</Text>
+                    <Divider />
+                    <Text>{utility}</Text>
+                </View>
+
+                <Divider width={5} />
+
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>기술적 실행 가능성</Text>
+                    <Divider />
+                    <Text>{feasibility}</Text>
+                </View>
+
+                <Divider width={5} />
+
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>시장의 수용도</Text>
+                    <Divider />
+                    <Text>{acceptance}</Text>
+                </View>
+
+                <Divider width={5} />
+
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>지속가능성 및 확장성</Text>
+                    <Divider />
+                    <Text>{scalability}</Text>
+                </View>
+
+                <Divider width={5} />
+
+                <View style={styles.horizontal}>
+                    <Text style={styles.boldText}>총점</Text>
+                    <Divider />
+                    <Text>{totalPoint}</Text>
+                </View>
+
+                <Divider width={5} />
             </ScrollView>
-
-
 
         </View>
     );
