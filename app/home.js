@@ -12,7 +12,7 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Persona Maker</Text>
+            <Text style={styles.title}>내 아이디어 어때?</Text>
             <Pressable style={styles.button} onPress={toContinue}>
                 <Text style={styles.buttonText}>Continue...</Text>
             </Pressable>
@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#610C9F',
+        backgroundColor: '#F1B4BB',
         alignItems: 'center',
         justifyContent: 'center',
     },
     button: {
-        backgroundColor: '#940B92',
+        backgroundColor: '#1F4172',
         padding: 10,
         paddingHorizontal: 30,
         borderRadius: 25,

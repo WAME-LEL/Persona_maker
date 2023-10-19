@@ -3,9 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 
 const Introduce = () => (
   <View style={styles.container}>
-    <Text style={styles.title}>Persona Maker</Text>
+    <Text style={styles.title}>내 아이디어 어때?</Text>
     <Text style={styles.description}>
-      사용자가 진행중인 프로젝트를 입력 받아 임의의 페르소나를 만들어 해당 프로젝트를 경험 후 개선점을 알려주는 어플리케이션입니다.
+      사용자가 계획중인 프로젝트를 입력 받아 가상의 페르소나를 만들어 해당 프로젝트를 경험 후 평가해주는 어플리케이션입니다.
     </Text>
     <Text style={styles.features}>
       - Introduce: Persona Maker 프로젝트를 소개하는 페이지
