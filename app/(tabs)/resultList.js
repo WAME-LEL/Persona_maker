@@ -8,11 +8,12 @@ const ResultList = () => {
     const [result, setResult] = useState([]);
 
 
+    //firebase DB에서 데이터 읽어오는 함수
     const readFromDB = async () => {
         try {
-            const querySnapshot = await getDocs(collection(db, "result"));
-            const resultData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            setResult(resultData);
+            const querySnapshot = await getDocs(collection(db, "result"));      //getDocs함수로 result collection의 모든 document를 가져옴
+            const resultData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));      //document의 id와 data를 합쳐서 resultData에 저장
+            setResult(resultData);      //resultData를 result state에 저장
 
         } catch (error) {
             console.log(error.message);
@@ -20,21 +21,22 @@ const ResultList = () => {
 
     }
 
+    //firebase DB에서 데이터 삭제하는 함수
     const deleteFromDB = async (id) => {
         try {
-            await deleteDoc(doc(db, "result", id));
+            await deleteDoc(doc(db, "result", id));     //deleteDoc함수로 result collection의 해당 id를 가진 document를 삭제
             alert("삭제되었습니다")
         } catch (error) {
             console.log(error.message)
         }
-
+        //데이터 삭제 후 다시 DB에서 데이터 읽어오기
         readFromDB();
     }
 
 
     useEffect(() => {
         readFromDB();
-    }, [])
+    }, [])      //컴포넌트가 마운트될 때 한번만 실행되도록 설정
 
 
     return (
@@ -45,7 +47,7 @@ const ResultList = () => {
                     <Text style={styles.text}>리스트 불러오기</Text>
                 </Pressable>
 
-                {result && result?.map((data) => {
+                {result && result?.map((data) => {      //result에 존재하는 모든 document를 map함수로 순회하며 Card 컴포넌트에 출력
                     return (
                         <Card key={data.id}>
                             <View>
@@ -104,6 +106,7 @@ const ResultList = () => {
     )
 }
 
+//스타일
 const styles = StyleSheet.create({
     button: {
         flex: 1,

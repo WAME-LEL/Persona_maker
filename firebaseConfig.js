@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc, doc, getDocs, deleteDoc  } from "firebase/firestore";
+
 const firebaseConfig = {
     apiKey: "AIzaSyBOTJI9nPsj69PDdERF2ZAmwkBtCKzz1Ro",
     authDomain: "persona-maker-774bf.firebaseapp.com",
@@ -11,9 +12,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
-
-// Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
 

@@ -19,6 +19,7 @@ const StackLayout = () => {
                     headerShown: false
                 }}
             />
+            
             <Stack.Screen
                 name='(tabs)'
                 options={{

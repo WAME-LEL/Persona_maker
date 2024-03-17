@@ -5,7 +5,8 @@ import { Text, StyleSheet, View, Pressable } from "react-native";
 const Home = () => {
     const router = useRouter();
 
-    const toContinue = () => {
+    //introduce 페이지로 이동하는 함수
+    const toIntroduce = () => {
         router.replace("/introduce");
     }
 
@@ -13,7 +14,7 @@ const Home = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>내 아이디어 어때?</Text>
-            <Pressable style={styles.button} onPress={toContinue}>
+            <Pressable style={styles.button} onPress={toIntroduce}>
                 <Text style={styles.buttonText}>Continue...</Text>
             </Pressable>
         </View>
@@ -21,6 +22,7 @@ const Home = () => {
 
 }
 
+//스타일
 const styles = StyleSheet.create({
     title: {
         color: 'white',
